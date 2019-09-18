@@ -1,4 +1,4 @@
-﻿namespace FlowMe.Persistence
+﻿﻿namespace FlowMe.Persistence
 {
     public interface IFlowMeDbContext
     {
