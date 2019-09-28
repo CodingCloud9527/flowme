@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
+        <AssemblyName>BPMN.Analyze.Tests</AssemblyName>
+        <RootNamespace>BPMN.Analyze.Tests</RootNamespace>
     </PropertyGroup>
 
 </Project>

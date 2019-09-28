@@ -9,4 +9,8 @@
       <Folder Include="Persistence\Entity" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BPMN.Analyze\BPMN.Analyze.csproj" />
+    </ItemGroup>
+
 </Project>
