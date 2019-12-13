@@ -8,9 +8,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe", "src\FlowMe\FlowMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe.Tests", "test\FlowMe.Tests\FlowMe.Tests.csproj", "{EB7AE65D-2B0B-473B-84D7-809B4D2334F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMN.Analyze", "src\BPMN.Analyze\BPMN.Analyze.csproj", "{E00E56D1-E3EB-4338-9039-91C456E16310}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMne.Analyze", "src\FlowMne.Analyze\FlowMne.Analyze.csproj", "{E00E56D1-E3EB-4338-9039-91C456E16310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMN.Analyze.Tests", "test\BPMN.Analyze.Tests\BPMN.Analyze.Tests.csproj", "{4ADE8F70-ACD6-4996-AB63-75DFA54D5266}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe.Analyze.Tests", "test\FlowMe.Analyze.Tests\FlowMe.Analyze.Tests.csproj", "{4ADE8F70-ACD6-4996-AB63-75DFA54D5266}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace BPMN.Analyze.Model
+﻿namespace FlowMe.Analyze.Model
 {
     internal abstract class FlowComponent
     {

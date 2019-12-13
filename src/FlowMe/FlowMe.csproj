@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BPMN.Analyze\BPMN.Analyze.csproj" />
+      <ProjectReference Include="..\FlowMne.Analyze\FlowMne.Analyze.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,8 +2,8 @@
     
 <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <AssemblyName>BPMN.Analyze</AssemblyName>
-        <RootNamespace>BPMN.Analyze</RootNamespace>
+        <AssemblyName>FlowMe.Analyze</AssemblyName>
+        <RootNamespace>FlowMe.Analyze</RootNamespace>
     </PropertyGroup>
     
 <ItemGroup>
