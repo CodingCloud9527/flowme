@@ -1,6 +1,6 @@
-﻿namespace FlowMe.Analyze.Model
+﻿namespace FlowMe.Analyze
 {
-    internal abstract class FlowComponent
+    internal abstract class FlowComponentBase : IFlowComponent
     {
         public string Id { get; protected set; }
 
