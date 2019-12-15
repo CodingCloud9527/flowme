@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\FlowMe.Analyze\FlowMe.Analyze.csproj" />
     </ItemGroup>
 
     <ItemGroup>

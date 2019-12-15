@@ -3,7 +3,7 @@ using System.Xml;
 namespace FlowMe.Analyze.Model
 {
     /// <summary>
-    /// indicate that is a workflow component
+    ///     indicate that is a workflow component
     /// </summary>
     public abstract class BpmnComponent
     {
@@ -11,11 +11,19 @@ namespace FlowMe.Analyze.Model
 
         public string Name { get; protected set; }
 
-        public virtual BpmnComponent ConvertFromXml(XmlElement ele)
+        public XmlElement Stub { get; protected set; }
+
+        public BpmnComponent ConvertFromXml(XmlElement ele)
         {
             Id = ele.GetAttribute("id");
             Name = ele.GetAttribute("name");
+            Stub = ele;
+            Convert(ele);
             return this;
+        }
+
+        protected virtual void Convert(XmlElement ele)
+        {
         }
     }
 }

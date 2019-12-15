@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Xml;
 using FlowMe.Analyze.Model;
 using FlowMe.Analyze.Model.Event;
 using FlowMe.Analyze.Model.Gateway;
-using FlowMe.Analyze.Model.SequenceFlow;
 using FlowMe.Analyze.Model.Task;
 
-namespace FlowMe.Analyze.Context.Diagram
+namespace FlowMe.Analyze.Diagram
 {
     public static class BpmnComponentFactory
     {
@@ -44,10 +42,7 @@ namespace FlowMe.Analyze.Context.Diagram
 
         public static BpmnComponent Create(XmlElement ele)
         {
-            if (!NodeMapping.ContainsKey(ele.Name))
-            {
-                throw new UnsupportedElementException(ele);
-            }
+            if (!NodeMapping.ContainsKey(ele.Name)) throw new UnsupportedElementException(ele);
 
             return ((BpmnComponent) Activator.CreateInstance(NodeMapping[ele.Name])).ConvertFromXml(ele);
         }
@@ -55,7 +50,7 @@ namespace FlowMe.Analyze.Context.Diagram
 
     public class UnsupportedElementException : Exception
     {
-        public UnsupportedElementException(XmlNode node) : base($"the element [{node.Name}] not support yet!")
+        public UnsupportedElementException(XmlNode node) : base($"the element [{node.Name}] does not support yet!")
         {
         }
     }
