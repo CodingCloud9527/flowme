@@ -5,11 +5,5 @@
         <AssemblyName>FlowMe.Analyze</AssemblyName>
         <RootNamespace>FlowMe.Analyze</RootNamespace>
     </PropertyGroup>
-    
-<ItemGroup>
-  <Folder Include="Model\Activities" />
-  <Folder Include="Model\Event" />
-  <Folder Include="Model\Gateway" />
-</ItemGroup>
 
 </Project>
