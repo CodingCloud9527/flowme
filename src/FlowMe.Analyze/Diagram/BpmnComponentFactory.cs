@@ -42,9 +42,9 @@ namespace FlowMe.Analyze.Diagram
 
         public static BpmnComponent Create(XmlElement ele)
         {
-            if (!NodeMapping.ContainsKey(ele.Name)) throw new UnsupportedElementException(ele);
+            if (!NodeMapping.ContainsKey(ele.LocalName)) throw new UnsupportedElementException(ele);
 
-            return ((BpmnComponent) Activator.CreateInstance(NodeMapping[ele.Name])).ConvertFromXml(ele);
+            return ((BpmnComponent) Activator.CreateInstance(NodeMapping[ele.LocalName])).ConvertFromXml(ele);
         }
     }
 

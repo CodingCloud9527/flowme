@@ -9,7 +9,8 @@ namespace FlowMe.Analyze.Diagram
 {
     internal class Diagram : IDiagram
     {
-        private const string ProcessDefXPath = "/definitions/process";
+        private const string ProcessDefTag = "process";
+        private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
         private readonly HashSet<BpmnComponent> _resolved = new HashSet<BpmnComponent>();
         private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
 
@@ -94,13 +95,20 @@ namespace FlowMe.Analyze.Diagram
         {
             var bpmnXml = new XmlDocument();
             bpmnXml.LoadXml(bpmnContent);
-            var processNode = bpmnXml.SelectSingleNode(ProcessDefXPath);
-            if (processNode == null || !processNode.HasChildNodes)
+            var bpmnXmlElement = bpmnXml.DocumentElement;
+            if (bpmnXmlElement == null)
             {
-                throw new Exception("the bpmn content is invalid!");
+                throw new Exception("The Xml doesn't contain any element!");
             }
 
-            foreach (XmlElement ele in processNode)
+            var bpmnPrefix = bpmnXmlElement.GetPrefixOfNamespace(BpmnNamespace);
+            var processNode = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{ProcessDefTag}");
+            if (processNode == null || processNode.Count < 1 || !processNode[0].HasChildNodes)
+            {
+                throw new Exception("Not a valid Bpmn content!");
+            }
+
+            foreach (XmlElement ele in processNode[0].ChildNodes)
             {
                 _unResolved.Add(BpmnComponentFactory.Create(ele));
             }
