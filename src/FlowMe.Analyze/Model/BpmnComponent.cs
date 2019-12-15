@@ -11,7 +11,7 @@ namespace FlowMe.Analyze.Model
 
         public string Name { get; protected set; }
 
-        public virtual BpmnComponent ConvertFromXmlNode(XmlElement ele)
+        public virtual BpmnComponent ConvertFromXml(XmlElement ele)
         {
             Id = ele.GetAttribute("id");
             Name = ele.GetAttribute("name");
