@@ -49,7 +49,7 @@ namespace FlowMe.Analyze.Context.Diagram
                 throw new UnsupportedElementException(ele);
             }
 
-            return ((BpmnComponent) Activator.CreateInstance(NodeMapping[ele.Name])).ConvertFromXmlNode(ele);
+            return ((BpmnComponent) Activator.CreateInstance(NodeMapping[ele.Name])).ConvertFromXml(ele);
         }
     }
 
