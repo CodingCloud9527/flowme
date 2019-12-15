@@ -11,7 +11,6 @@ namespace FlowMe.Analyze.Diagram
     {
         private const string ProcessDefTag = "process";
         private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
-        private readonly HashSet<BpmnComponent> _resolved = new HashSet<BpmnComponent>();
         private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
 
         private StartEvent _startEvent;
@@ -21,6 +20,7 @@ namespace FlowMe.Analyze.Diagram
             Translate(bpmnContent);
             CheckComponents();
             Assemble();
+            //TODO: handle if some components unresolved
         }
 
 
