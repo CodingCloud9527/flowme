@@ -7,7 +7,7 @@ namespace FlowMe.Analyze.Model
     /// </summary>
     public abstract class BpmnNodeComponent : BpmnComponent
     {
-        public virtual List<SequenceFlow> SourceRef { get; set; }
-        public virtual List<SequenceFlow> TargetRef { get; set; }
+        public virtual List<SequenceFlow> SourceRef { get; set; } = new List<SequenceFlow>();
+        public virtual List<SequenceFlow> TargetRef { get; set; } = new List<SequenceFlow>();
     }
 }
