@@ -5,11 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Core" />
-      <Folder Include="Persistence\Entity" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\FlowMe.Analyze\FlowMe.Analyze.csproj" />
     </ItemGroup>
 
