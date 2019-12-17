@@ -27,5 +27,10 @@ namespace FlowMe.Persistence.Entity
         [StringLength(2000)]
         [Column("DESCRIPTION")]
         public string Description { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Column("STATUS")]
+        public string Status { get; set; }
     }
 }
