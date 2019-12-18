@@ -1,8 +1,8 @@
 using FlowMe.Analyze.Model.Event;
 
-namespace FlowMe.Analyze.Diagram
+namespace FlowMe.Analyze.Process
 {
-    public interface IDiagram
+    public interface IProcessDiagram
     {
         StartEvent GetEntry();
     }

@@ -6,7 +6,7 @@ using FlowMe.Analyze.Model.Event;
 using FlowMe.Analyze.Model.Gateway;
 using FlowMe.Analyze.Model.Task;
 
-namespace FlowMe.Analyze.Diagram
+namespace FlowMe.Analyze.Process
 {
     public static class BpmnComponentFactory
     {

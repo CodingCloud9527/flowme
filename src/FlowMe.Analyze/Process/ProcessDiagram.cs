@@ -5,9 +5,9 @@ using System.Xml;
 using FlowMe.Analyze.Model;
 using FlowMe.Analyze.Model.Event;
 
-namespace FlowMe.Analyze.Diagram
+namespace FlowMe.Analyze.Process
 {
-    internal class Diagram : IDiagram
+    internal class ProcessDiagram : IProcessDiagram
     {
         private const string ProcessDefTag = "process";
         private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
@@ -15,7 +15,7 @@ namespace FlowMe.Analyze.Diagram
 
         private StartEvent _startEvent;
 
-        public Diagram(string bpmnContent)
+        public ProcessDiagram(string bpmnContent)
         {
             Translate(bpmnContent);
             CheckComponents();

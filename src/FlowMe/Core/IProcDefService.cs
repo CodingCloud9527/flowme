@@ -1,10 +1,10 @@
-using FlowMe.Analyze.Diagram;
+using FlowMe.Analyze.Process;
 
 namespace FlowMe.Core
 {
     public interface IProcDefService
     {
-        void Deploy(IDiagram diagram);
+        void Deploy(IProcessDiagram diagram);
 
         bool TryUnDeploy(string name);
     }

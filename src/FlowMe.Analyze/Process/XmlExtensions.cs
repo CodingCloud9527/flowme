@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace FlowMe.Analyze.Diagram
+namespace FlowMe.Analyze.Process
 {
     public static class XmlExtensions
     {

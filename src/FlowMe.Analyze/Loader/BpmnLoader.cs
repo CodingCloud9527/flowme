@@ -1,12 +1,12 @@
-using FlowMe.Analyze.Diagram;
+using FlowMe.Analyze.Process;
 
 namespace FlowMe.Analyze.Loader
 {
     public static class BpmnLoader
     {
-        public static IDiagram Load(string bpmnContent)
+        public static IProcessDiagram Load(string bpmnContent)
         {
-            return new Diagram.Diagram(bpmnContent);
+            return new ProcessDiagram(bpmnContent);
         }
     }
 }
