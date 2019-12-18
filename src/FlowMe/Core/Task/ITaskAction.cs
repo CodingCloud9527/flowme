@@ -1,4 +1,4 @@
-namespace FlowMe.Core.Task
+﻿namespace FlowMe.Core.Task
 {
     public interface ITaskAction
     {
