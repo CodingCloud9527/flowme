@@ -15,6 +15,9 @@ namespace FlowMe.Analyze.Process
 
         private StartEvent _startEvent;
 
+        public string Id { get; set; }
+        public string Name { get; set; }
+
         public ProcessDiagram(string bpmnContent)
         {
             Translate(bpmnContent);
@@ -102,13 +105,17 @@ namespace FlowMe.Analyze.Process
             }
 
             var bpmnPrefix = bpmnXmlElement.GetPrefixOfNamespace(BpmnNamespace);
-            var processNode = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{ProcessDefTag}");
-            if (processNode == null || processNode.Count < 1 || !processNode[0].HasChildNodes)
+            var procDefTag = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{ProcessDefTag}");
+
+            if (procDefTag == null || procDefTag.Count < 1 || !procDefTag[0].HasChildNodes)
             {
                 throw new Exception("Not a valid Bpmn content!");
             }
 
-            foreach (XmlElement ele in processNode[0].ChildNodes)
+            Id = ((XmlElement) procDefTag[0]).GetAttribute("id");
+            Name = ((XmlElement) procDefTag[0]).GetAttribute("name");
+
+            foreach (XmlElement ele in procDefTag[0].ChildNodes)
             {
                 _unResolved.Add(BpmnComponentFactory.Create(ele));
             }
