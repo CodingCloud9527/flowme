@@ -1,4 +1,4 @@
-﻿namespace FlowMe.Core
+﻿namespace FlowMe.Engine
 {
     public interface IBpmnEngine
     {
