@@ -5,12 +5,14 @@ namespace FlowMe.Persistence
 {
     public class BpmnDbContext : DbContext
     {
-        public DbSet<ProcDef> ProcDefs { get; set; }
+        public DbSet<ProcessDeployment> ProcessDeployments { get; set; }
+        public DbSet<ProcessDefinition> ProcessDefs { get; set; }
 
-        public DbSet<ProcInst> ProcInsts { get; set; }
-
-        public DbSet<ProcTask> ProcTasks { get; set; }
-
-        public DbSet<ProcVar> ProcVars { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProcessDeployment>()
+                .HasAlternateKey(p => p.Name);
+            
+        }
     }
 }
