@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlowMe.Persistence.Entity
 {
-    [Table("FM_HI_PROCINST（")]
+    [Table("FM_HI_PROCINST")]
     public class ProcessInstance
     {
         [Key]
@@ -15,7 +15,7 @@ namespace FlowMe.Persistence.Entity
         public string BusinessKey { get; set; }
 
         [Required]
-        public ProcessDefinition ProcessDef { get; set; }
+        public ProcessDefinition Definition { get; set; }
 
 
         public DateTime StartTime { get; set; }
@@ -35,6 +35,5 @@ namespace FlowMe.Persistence.Entity
         public string EndActId { get; set; }
 
         public ProcessInstance ParentInstance { get; set; }
-        
     }
 }

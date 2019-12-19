@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FlowMe.Persistence.Entity
 {
@@ -11,7 +12,7 @@ namespace FlowMe.Persistence.Entity
         public string Id { get; set; }
 
         [Required]
-        public ProcessInstance ProcessInstance { get; set; }
+        public ProcessInstance Instance { get; set; }
 
         [StringLength(255)]
         public string BusinessKey { get; set; }
@@ -21,13 +22,10 @@ namespace FlowMe.Persistence.Entity
         [Required]
         public ProcessDefinition Definition { get; set; }
 
-        [Required]
-        public ActHistory Act { get; set; }
+        // public ActHistory Act { get; set; }
 
         public bool IsActive { get; set; }
 
         public bool IsConcurrent { get; set; }
-        
-        
     }
 }
