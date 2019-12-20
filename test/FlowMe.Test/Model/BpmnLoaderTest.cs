@@ -2,7 +2,7 @@ using System.IO;
 using FlowMe.Model.Loader;
 using Xunit;
 
-namespace FlowMe.Analyze.Tests
+namespace FlowMe.Test.Model
 {
     public class BpmnLoaderTest
     {

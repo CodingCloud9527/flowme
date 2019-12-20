@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5978ACAF-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe", "src\FlowMe\FlowMe.csproj", "{63E846D8-3E0B-41C5-B5B3-C2232F845985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe.Tests", "test\FlowMe.Tests\FlowMe.Tests.csproj", "{EB7AE65D-2B0B-473B-84D7-809B4D2334F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe.Test", "test\FlowMe.Test\FlowMe.Test.csproj", "{EB7AE65D-2B0B-473B-84D7-809B4D2334F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowMe.EFCore.Demo", "test\FlowMe.EFCore.Demo\FlowMe.EFCore.Demo.csproj", "{F0F13044-18D5-4B8E-ACBB-CA1E4182BE13}"
 EndProject
