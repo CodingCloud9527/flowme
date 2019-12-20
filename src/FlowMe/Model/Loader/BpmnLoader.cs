@@ -1,12 +1,10 @@
-using FlowMe.Model.Process;
-
 namespace FlowMe.Model.Loader
 {
     public static class BpmnLoader
     {
-        public static IProcessModel Load(string bpmnContent)
+        public static IBpmnModel Load(string bpmnContent)
         {
-            return new ProcessModel(bpmnContent);
+            return new BpmnModel(bpmnContent);
         }
     }
 }

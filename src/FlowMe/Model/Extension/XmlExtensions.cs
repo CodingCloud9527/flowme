@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace FlowMe.Model.Process
+namespace FlowMe.Model.Extension
 {
     public static class XmlExtensions
     {

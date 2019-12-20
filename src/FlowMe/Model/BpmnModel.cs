@@ -4,10 +4,11 @@ using System.Linq;
 using System.Xml;
 using FlowMe.Model.Component;
 using FlowMe.Model.Component.Event;
+using FlowMe.Model.Extension;
 
-namespace FlowMe.Model.Process
+namespace FlowMe.Model
 {
-    internal class ProcessModel : IProcessModel
+    internal class BpmnModel : IBpmnModel
     {
         private const string ProcessDefTag = "process";
         private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
@@ -15,7 +16,7 @@ namespace FlowMe.Model.Process
 
         private StartEvent _startEvent;
 
-        public ProcessModel(string bpmnContent)
+        public BpmnModel(string bpmnContent)
         {
             Translate(bpmnContent);
             CheckComponents();

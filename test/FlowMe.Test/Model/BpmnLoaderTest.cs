@@ -9,7 +9,7 @@ namespace FlowMe.Test.Model
         [Fact]
         public void Should_Load_Correctly()
         {
-            var bpmnContent = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "sample.xml"));
+            var bpmnContent = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Model", "sample.xml"));
             BpmnLoader.Load(bpmnContent);
         }
     }

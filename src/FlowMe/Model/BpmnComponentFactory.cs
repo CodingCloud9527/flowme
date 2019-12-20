@@ -6,7 +6,7 @@ using FlowMe.Model.Component.Event;
 using FlowMe.Model.Component.Gateway;
 using FlowMe.Model.Component.Task;
 
-namespace FlowMe.Model.Process
+namespace FlowMe.Model
 {
     public static class BpmnComponentFactory
     {

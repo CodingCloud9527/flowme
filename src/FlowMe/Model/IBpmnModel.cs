@@ -1,8 +1,8 @@
 using FlowMe.Model.Component.Event;
 
-namespace FlowMe.Model.Process
+namespace FlowMe.Model
 {
-    public interface IProcessModel
+    public interface IBpmnModel
     {
         StartEvent GetEntry();
     }
