@@ -4,7 +4,7 @@ namespace FlowMe.Engine
 {
     public class ProcessEngine : IProcessEngine
     {
-        private ProcessEngineConfiguration _configuration;
+        private readonly ProcessEngineConfiguration _configuration;
 
         public ProcessEngine(ProcessEngineConfiguration configuration)
         {

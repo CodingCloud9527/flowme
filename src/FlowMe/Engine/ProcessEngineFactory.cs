@@ -1,16 +1,16 @@
 ﻿using System;
-using FlowMe.Event.Bus;
+using FlowMe.Event.Dispatcher;
 
 namespace FlowMe.Engine
 {
     public class ProcessEngineFactory
     {
-        private ProcessEngineConfiguration _configuration;
-
         private static IProcessEngine _cache;
 
         private static readonly Lazy<ProcessEngineFactory> _ =
             new Lazy<ProcessEngineFactory>(() => new ProcessEngineFactory());
+
+        private ProcessEngineConfiguration _configuration;
 
         private ProcessEngineFactory()
         {
@@ -40,12 +40,8 @@ namespace FlowMe.Engine
         {
             _configuration.EventDispatcher = new EventDispatcher();
             if (_configuration.CustomEventListeners != null)
-            {
                 foreach (var customEventListener in _configuration.CustomEventListeners)
-                {
                     _configuration.EventDispatcher.AddListener(customEventListener);
-                }
-            }
         }
     }
 }

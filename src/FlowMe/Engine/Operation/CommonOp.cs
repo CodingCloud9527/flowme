@@ -1,13 +1,13 @@
-﻿using FlowMe.Event.Bus;
+﻿using FlowMe.Event.Dispatcher;
 
 namespace FlowMe.Engine.Operation
 {
-    class CommonOp : OperationBase, ICommonOp
+    internal class CommonOp : OperationBase, ICommonOp
     {
-        public IEventDispatcher EventDispatcher => _configuration.EventDispatcher;
-
         public CommonOp(ProcessEngineConfiguration configuration) : base(configuration)
         {
         }
+
+        public IEventDispatcher EventDispatcher => _configuration.EventDispatcher;
     }
 }

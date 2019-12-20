@@ -1,6 +1,4 @@
-﻿
-
-using Castle.Core.Logging;
+﻿using Castle.Core.Logging;
 
 namespace FlowMe.Engine.Logger
 {
