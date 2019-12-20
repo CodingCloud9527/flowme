@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Castle.Core.Logging;
+using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
-using Microsoft.Extensions.Logging;
 
 namespace FlowMe.Engine
 {
@@ -10,7 +11,12 @@ namespace FlowMe.Engine
         {
         }
 
-        private ILogger Logger { get; set; }
+        private ILogger Logger
+        {
+            set => LoggerHolder.Logger = value;
+            get => LoggerHolder.Logger;
+        }
+
         public IEventDispatcher EventDispatcher { get; internal set; }
         public IList<IEventListener> CustomEventListeners { get; set; }
     }
