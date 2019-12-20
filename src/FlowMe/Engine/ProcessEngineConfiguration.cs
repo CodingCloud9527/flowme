@@ -1,13 +1,17 @@
-﻿using FlowMe.Event.Bus;
+﻿using System.Collections.Generic;
+using FlowMe.Event.Bus;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace FlowMe.Engine
 {
     public class ProcessEngineConfiguration
     {
         ILogger Logger { get; set; }
+        public IEventDispatcher EventDispatcher { get; internal set; }
+        public IList<IEventListener> CustomEventListeners { get; set; }
 
-        IEventPublisher EventPublisher { get; }
+        internal ProcessEngineConfiguration()
+        {
+        }
     }
 }

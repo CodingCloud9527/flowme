@@ -16,5 +16,6 @@ namespace FlowMe.Engine
         public IRuntimeOp RuntimeOp { get; }
         public IHisOp HisOp { get; }
         public IDeployOp DeployOp { get; }
+        public ICommonOp CommonOp => new CommonOp(_configuration);
     }
 }

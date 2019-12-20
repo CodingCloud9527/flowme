@@ -7,14 +7,14 @@ using FlowMe.Engine.Logger;
 
 namespace FlowMe.Event.Bus
 {
-    class EventPublisher : IEventPublisher
+    class EventDispatcher : IEventDispatcher
     {
         private readonly ISet<IEventListener> _customListeners;
         private readonly ISet<IEventListener> _systemListeners;
 
         private ILogger _logger = LoggerHolder.Logger;
 
-        internal EventPublisher()
+        internal EventDispatcher()
         {
             _systemListeners = new HashSet<IEventListener>();
             _customListeners = new HashSet<IEventListener>();
@@ -31,14 +31,14 @@ namespace FlowMe.Event.Bus
             _customListeners.Remove(eventListener);
         }
 
-        public void Publish(string eventName)
+        public void DispatchEvent(string eventName, object data = null)
         {
             Parallel.ForEach(_systemListeners.Where(e => e.FocusOn == eventName),
                 listener =>
                 {
                     try
                     {
-                        listener.Listen();
+                        listener.Listen(data);
                     }
                     catch (Exception e)
                     {
@@ -51,7 +51,7 @@ namespace FlowMe.Event.Bus
                 {
                     try
                     {
-                        listener.Listen();
+                        listener.Listen(data);
                     }
                     catch (Exception e)
                     {
@@ -59,6 +59,7 @@ namespace FlowMe.Event.Bus
                     }
                 });
         }
+
 
         internal void AddSystemListener(IEventListener systemEventListener)
         {

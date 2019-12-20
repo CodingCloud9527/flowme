@@ -4,9 +4,9 @@ namespace FlowMe.Analyze.Loader
 {
     public static class BpmnLoader
     {
-        public static IProcessDiagram Load(string bpmnContent)
+        public static IProcessModel Load(string bpmnContent)
         {
-            return new ProcessDiagram(bpmnContent);
+            return new ProcessModel(bpmnContent);
         }
     }
 }

@@ -2,12 +2,13 @@
 
 namespace FlowMe.Event.Bus
 {
-    public interface IEventPublisher
+    public interface IEventDispatcher
     {
         void AddListener(IEventListener eventListener);
 
         void RemoveListener(IEventListener eventListener);
 
-        void Publish(string eventName);
+        
+        void DispatchEvent(string eventName, object data = null);
     }
 }

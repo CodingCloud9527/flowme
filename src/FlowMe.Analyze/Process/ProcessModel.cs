@@ -7,7 +7,7 @@ using FlowMe.Analyze.Model.Event;
 
 namespace FlowMe.Analyze.Process
 {
-    internal class ProcessDiagram : IProcessDiagram
+    internal class ProcessModel : IProcessModel
     {
         private const string ProcessDefTag = "process";
         private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
@@ -18,7 +18,7 @@ namespace FlowMe.Analyze.Process
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public ProcessDiagram(string bpmnContent)
+        public ProcessModel(string bpmnContent)
         {
             Translate(bpmnContent);
             CheckComponents();

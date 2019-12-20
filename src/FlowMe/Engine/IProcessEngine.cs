@@ -8,5 +8,7 @@ namespace FlowMe.Engine
         IRuntimeOp RuntimeOp { get; }
         IHisOp HisOp { get; }
         IDeployOp DeployOp { get; }
+        
+        ICommonOp CommonOp { get; }
     }
 }

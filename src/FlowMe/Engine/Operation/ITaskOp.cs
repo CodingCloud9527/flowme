@@ -5,6 +5,5 @@ namespace FlowMe.Engine.Operation
     public interface ITaskOp
     {
         ITaskQueryable CreateTaskQuery();
-        
     }
 }

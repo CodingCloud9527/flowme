@@ -4,6 +4,6 @@
     {
         string FocusOn { get; }
 
-        void Listen();
+        void Listen(object data = null);
     }
 }
