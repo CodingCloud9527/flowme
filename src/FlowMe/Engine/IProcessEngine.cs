@@ -2,7 +2,7 @@
 
 namespace FlowMe.Engine
 {
-    public interface IBpmnEngine
+    public interface IProcessEngine
     {
         ITaskOp TaskOp { get; }
         IRuntimeOp RuntimeOp { get; }
