@@ -6,7 +6,8 @@
 
         public static IProcessEngine Create(ProcessEngineConfiguration configuration = null)
         {
-            _configuration = configuration ?? ProcessEngineConfiguration.Default;
+            _configuration = configuration ?? new ProcessEngineConfiguration();
+            return null;
         }
     }
 }
