@@ -1,5 +1,6 @@
 ﻿using System;
 using FlowMe.Event.Dispatcher;
+using FlowMe.Persistence;
 
 namespace FlowMe.Engine
 {
@@ -33,7 +34,14 @@ namespace FlowMe.Engine
 
         private void Init()
         {
+            InitDbContext();
             InitEventDispatcher();
+        }
+
+
+        private void InitDbContext()
+        {
+            _configuration.DbContext = new BpmnDbContext();
         }
 
         private void InitEventDispatcher()

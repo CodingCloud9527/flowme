@@ -12,6 +12,7 @@ namespace FlowMe.Model
     internal class BpmnModel : IBpmnModel
     {
         private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
+        private readonly Dictionary<string, BpmnComponent> _components = new Dictionary<string, BpmnComponent>();
 
         private StartEvent _startEvent;
 
@@ -21,15 +22,6 @@ namespace FlowMe.Model
             CheckComponents();
             Assemble();
             //TODO: handle if some components unresolved
-        }
-
-        public string Id { get; set; }
-        public string Name { get; set; }
-
-
-        public StartEvent GetEntry()
-        {
-            return _startEvent;
         }
 
 
@@ -47,7 +39,7 @@ namespace FlowMe.Model
                 {
                     head.TargetRef.Add(sequenceFlow);
                     sequenceFlow.SourceRef = head;
-                    _unResolved.Remove(head);
+                    ResolveItem(head);
                 }
 
                 var tail = bpmnNodes.SingleOrDefault(e => e.Stub.Id() == sequenceFlow.Stub.TargetRefId());
@@ -55,10 +47,10 @@ namespace FlowMe.Model
                 {
                     tail.SourceRef.Add(sequenceFlow);
                     sequenceFlow.TargetRef = tail;
-                    _unResolved.Remove(tail);
+                    ResolveItem(tail);
                 }
 
-                if (head != null || tail != null) _unResolved.Remove(sequenceFlow);
+                if (head != null || tail != null) ResolveItem(sequenceFlow);
             }
 
             var endEventCntAfterAssemble = _unResolved.Count(e => e is EndEvent);
@@ -68,13 +60,16 @@ namespace FlowMe.Model
                     "An error occurred while constructing flow diagram. Make sure that the flow diagram contains start event and end event!");
         }
 
+
         private void CheckComponents()
         {
             //id can't duplicate
-            if (_unResolved.GroupBy(e => e.Id).Select(e => e.Count()).Any(e => e > 1)) throw new Exception("Bpmn component's id can't duplicate!");
+            if (_unResolved.GroupBy(e => e.Id).Select(e => e.Count()).Any(e => e > 1))
+                throw new Exception("Bpmn component's id can't duplicate!");
 
             //Must contain exactly one start event
-            if (_unResolved.Count(e => e is StartEvent) != 1) throw new Exception("Must contain exactly one start event!");
+            if (_unResolved.Count(e => e is StartEvent) != 1)
+                throw new Exception("Must contain exactly one start event!");
 
             //Must contain at least one end event
             if (!_unResolved.Any(e => e is EndEvent)) throw new Exception("Must contain at least one end event!");
@@ -90,12 +85,30 @@ namespace FlowMe.Model
             var bpmnPrefix = bpmnXmlElement.GetPrefixOfNamespace(BpmnXmlConst.BPMN2_NAMESPACE);
             var procDefTag = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{BpmnXmlConst.ELEMENT_PROCESS}");
 
-            if (procDefTag == null || procDefTag.Count < 1 || !procDefTag[0].HasChildNodes) throw new Exception("Not a valid Bpmn content!");
+            if (procDefTag == null || procDefTag.Count < 1 || !procDefTag[0].HasChildNodes)
+                throw new Exception("Not a valid Bpmn content!");
 
             Id = ((XmlElement) procDefTag[0]).GetAttribute("id");
             Name = ((XmlElement) procDefTag[0]).GetAttribute("name");
 
             foreach (XmlElement ele in procDefTag[0].ChildNodes) _unResolved.Add(BpmnComponentFactory.Create(ele));
+        }
+
+        private void ResolveItem(BpmnComponent component)
+        {
+            _unResolved.Remove(component);
+            _components[component.Id] = component;
+        }
+
+        public StartEvent Entry => _startEvent;
+
+        public string Name { get; private set; }
+
+        public string Id { get; private set; }
+
+        public BpmnComponent GetComponentById(string id)
+        {
+            return _components[id];
         }
     }
 }

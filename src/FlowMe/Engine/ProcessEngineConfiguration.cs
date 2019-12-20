@@ -2,6 +2,7 @@
 using Castle.Core.Logging;
 using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
+using FlowMe.Persistence;
 
 namespace FlowMe.Engine
 {
@@ -18,6 +19,8 @@ namespace FlowMe.Engine
         }
 
         public IEventDispatcher EventDispatcher { get; internal set; }
+
+        public BpmnDbContext DbContext { get; internal set; }
         public IList<IEventListener> CustomEventListeners { get; set; }
     }
 }
