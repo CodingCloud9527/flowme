@@ -4,14 +4,13 @@ using System.Linq;
 using System.Xml;
 using FlowMe.Model.Component;
 using FlowMe.Model.Component.Event;
+using FlowMe.Model.Const;
 using FlowMe.Model.Extension;
 
 namespace FlowMe.Model
 {
     internal class BpmnModel : IBpmnModel
     {
-        private const string ProcessDefTag = "process";
-        private const string BpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
         private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
 
         private StartEvent _startEvent;
@@ -88,8 +87,8 @@ namespace FlowMe.Model
             var bpmnXmlElement = bpmnXml.DocumentElement;
             if (bpmnXmlElement == null) throw new Exception("The Xml doesn't contain any element!");
 
-            var bpmnPrefix = bpmnXmlElement.GetPrefixOfNamespace(BpmnNamespace);
-            var procDefTag = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{ProcessDefTag}");
+            var bpmnPrefix = bpmnXmlElement.GetPrefixOfNamespace(BpmnXmlConst.BPMN2_NAMESPACE);
+            var procDefTag = bpmnXmlElement.GetElementsByTagName($"{bpmnPrefix}:{BpmnXmlConst.ELEMENT_PROCESS}");
 
             if (procDefTag == null || procDefTag.Count < 1 || !procDefTag[0].HasChildNodes) throw new Exception("Not a valid Bpmn content!");
 
