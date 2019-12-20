@@ -1,7 +1,7 @@
 ﻿using FlowMe.Event.Dispatcher;
 using Xunit;
 
-namespace FlowMe.Tests.Event
+namespace FlowMe.Test.Engine.Event
 {
     public class EventTest : EngineTestBase
     {
@@ -19,7 +19,7 @@ namespace FlowMe.Tests.Event
         [Fact]
         public void ShouldPassDataWithEvent()
         {
-            var eventDispatcher = _processEngine.CommonOp.EventDispatcher;
+            var eventDispatcher = ProcessEngine.CommonOp.EventDispatcher;
             var listener = new TestListener();
             const string eventName = "Test";
             eventDispatcher.AddListener(listener);

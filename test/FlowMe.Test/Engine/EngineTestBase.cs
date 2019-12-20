@@ -1,14 +1,14 @@
 ﻿using FlowMe.Engine;
 
-namespace FlowMe.Tests
+namespace FlowMe.Test.Engine
 {
     public abstract class EngineTestBase
     {
-        protected IProcessEngine _processEngine;
+        protected readonly IProcessEngine ProcessEngine;
 
         protected EngineTestBase()
         {
-            _processEngine = ProcessEngineFactory.Instance.Create();
+            ProcessEngine = ProcessEngineFactory.Instance.Create();
         }
     }
 }
