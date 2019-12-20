@@ -6,6 +6,8 @@ namespace FlowMe.Engine
 {
     public class ProcessEngineConfiguration
     {
+        internal static ProcessEngineConfiguration Default { get; }
+
         ILogger Logger { get; set; }
 
         IEventPublisher EventPublisher { get; }

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Castle.Core.Logging;
 using FlowMe.Engine.Logger;
-using Microsoft.Extensions.Logging;
 
 namespace FlowMe.Event.Bus
 {
@@ -43,7 +42,7 @@ namespace FlowMe.Event.Bus
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError(e.Message);
+                        _logger.Error(e.Message);
                     }
                 });
 
@@ -56,7 +55,7 @@ namespace FlowMe.Event.Bus
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError(e.Message);
+                        _logger.Error(e.Message);
                     }
                 });
         }
