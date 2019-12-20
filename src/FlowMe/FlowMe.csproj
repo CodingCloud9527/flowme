@@ -3,10 +3,7 @@
 <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\FlowMe.Analyze\FlowMe.Analyze.csproj" />
-    </ItemGroup>
+    
 
     <ItemGroup>
       <PackageReference Include="Castle.Core" Version="4.4.0" />

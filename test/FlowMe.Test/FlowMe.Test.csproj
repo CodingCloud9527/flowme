@@ -14,4 +14,10 @@
       <ProjectReference Include="..\..\src\FlowMe\FlowMe.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Model\sample.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
