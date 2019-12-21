@@ -11,9 +11,9 @@ namespace FlowMe.Command.Context
             Configuration = configuration;
         }
 
-        public CommandContext<T> Create<T>(ICommand<T> command)
+        public CommandContext Create<T>(ICommand<T> command)
         {
-            return new CommandContext<T>(command, Configuration);
+            return new CommandContext(command.GetType(), Configuration);
         }
     }
 }

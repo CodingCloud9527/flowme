@@ -2,8 +2,8 @@ using FlowMe.Command.Context;
 
 namespace FlowMe.Command
 {
-    public interface ICommand<T>
+    public interface ICommand< out T>
     {
-        T Execute(CommandContext<T> commandContext);
+        T Execute(CommandContext commandContext);
     }
 }
