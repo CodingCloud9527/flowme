@@ -8,7 +8,7 @@ namespace FlowMe.Engine
 {
     public class ProcessEngineConfiguration
     {
-        internal ProcessEngineConfiguration()
+        public ProcessEngineConfiguration()
         {
         }
 
@@ -20,7 +20,7 @@ namespace FlowMe.Engine
 
         public IEventDispatcher EventDispatcher { get; internal set; }
 
-        public BpmnDbContext DbContext { get; internal set; }
+        public BpmnDbContext DbContext { get; set; }
         public IList<IEventListener> CustomEventListeners { get; set; }
     }
 }

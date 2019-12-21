@@ -16,7 +16,7 @@ namespace FlowMe.Engine.Operation.Definition.Deployment
             _dbContext = configuration.DbContext;
         }
 
-        void Deploy()
+        public void Deploy()
         {
             if (string.IsNullOrWhiteSpace(_definition.Key) || string.IsNullOrWhiteSpace(_definition.DefinitionXml) ||
                 string.IsNullOrWhiteSpace(_definition.Name))
@@ -50,25 +50,25 @@ namespace FlowMe.Engine.Operation.Definition.Deployment
             }
         }
 
-        DeploymentBuilder Name(string name)
+        public DeploymentBuilder Name(string name)
         {
             _definition.Name = name;
             return this;
         }
 
-        DeploymentBuilder Category(string category)
+        public DeploymentBuilder Category(string category)
         {
             _definition.Category = category;
             return this;
         }
 
-        DeploymentBuilder Key(string key)
+        public DeploymentBuilder Key(string key)
         {
             _definition.Key = key;
             return this;
         }
 
-        DeploymentBuilder BpmnContent(string content)
+        public DeploymentBuilder BpmnContent(string content)
         {
             _definition.DefinitionXml = content;
             return this;
