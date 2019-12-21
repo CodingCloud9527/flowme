@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Logging;
+using FlowMe.Command;
+using FlowMe.Command.Context;
+using FlowMe.Command.Interceptor;
 using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
@@ -20,7 +23,12 @@ namespace FlowMe.Engine.Configuration
 
         public IEventDispatcher EventDispatcher { get; internal set; }
 
-        public BpmnDbContext DbContext { get; set; }
-        public IList<IEventListener> CustomEventListeners { get; set; }
+        internal BpmnDbContext DbContext { get; set; }
+        internal IList<IEventListener> CustomEventListeners { get; set; }
+        internal CommandContextFactory CommandContextFactory { get; set; }
+
+        internal CommandConfig CommandConfig { get; set; }
+
+        internal ICommandInterceptor CommandInvoker { get; set; }
     }
 }

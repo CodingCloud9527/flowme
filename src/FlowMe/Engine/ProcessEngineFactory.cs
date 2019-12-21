@@ -1,4 +1,7 @@
 ﻿using System;
+using FlowMe.Command;
+using FlowMe.Command.Context;
+using FlowMe.Command.Interceptor.Invoker;
 using FlowMe.Engine.Configuration;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
@@ -36,6 +39,8 @@ namespace FlowMe.Engine
         private void Init()
         {
             InitEventDispatcher();
+            InitCommandContextFactory();
+            InitCommandExecutors();
             InitDbContext();
         }
 
@@ -52,5 +57,30 @@ namespace FlowMe.Engine
                 foreach (var customEventListener in _configuration.CustomEventListeners)
                     _configuration.EventDispatcher.AddListener(customEventListener);
         }
+
+        private void InitCommandExecutors()
+        {
+            InitDefaultCommandConfig();
+        }
+
+        private void InitCommandContextFactory()
+        {
+            _configuration.CommandContextFactory ??= new CommandContextFactory(_configuration);
+        }
+
+        #region Init command executors
+
+        private void InitDefaultCommandConfig()
+        {
+            _configuration.CommandConfig ??= new CommandConfig();
+        }
+
+        private void InitDefaultCommandInvoker()
+        {
+            _configuration.CommandInvoker ??= new CommandInvoker();
+        }
+        
+        #endregion
+     
     }
 }
