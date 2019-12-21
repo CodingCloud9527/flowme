@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.Core.Internal;
 using FlowMe.Command;
 using FlowMe.Command.Context;
+using FlowMe.Command.Executor;
 using FlowMe.Command.Interceptor;
 using FlowMe.Command.Interceptor.Invoker;
 using FlowMe.Engine.Configuration;
@@ -42,7 +44,7 @@ namespace FlowMe.Engine
         {
             InitEventDispatcher();
             InitCommandContextFactory();
-            InitCommandExecutors();
+            InitCommandChainSetting();
             InitDbContext();
         }
 
@@ -60,11 +62,12 @@ namespace FlowMe.Engine
                     _configuration.EventDispatcher.AddListener(customEventListener);
         }
 
-        private void InitCommandExecutors()
+        private void InitCommandChainSetting()
         {
             InitDefaultCommandConfig();
             InitDefaultCommandInvoker();
             InitCommandInterceptors();
+            InitCommandExecutor();
         }
 
         private void InitCommandContextFactory()
@@ -87,6 +90,44 @@ namespace FlowMe.Engine
         private void InitCommandInterceptors()
         {
             _configuration.CommandInterceptors ??= new List<ICommandInterceptor>();
+            if (!_configuration.CustomPreInterceptors.IsNullOrEmpty())
+            {
+                _configuration.CommandInterceptors.AddRange(_configuration.CustomPreInterceptors);
+            }
+
+            _configuration.CommandInterceptors.AddRange(DefaultInterceptors());
+
+            if (!_configuration.CustomPostInterceptors.IsNullOrEmpty())
+            {
+                _configuration.CommandInterceptors.AddRange(_configuration.CustomPostInterceptors);
+            }
+
+            _configuration.CommandInterceptors.Add(_configuration.CommandInvoker);
+        }
+
+        private void InitCommandExecutor()
+        {
+            if (_configuration.CommandExecutor == null)
+            {
+                var chain = _configuration.CommandInterceptors;
+                if (chain.IsNullOrEmpty())
+                {
+                    throw new Exception("Command interceptor chain can not be null!");
+                }
+
+                for (var i = 0; i < chain.Count - 1; i++)
+                {
+                    chain[i].Next = chain[i + 1];
+                }
+
+                _configuration.CommandExecutor = new CommandExecutor(_configuration.CommandConfig, chain[0]);
+            }
+        }
+
+        private List<ICommandInterceptor> DefaultInterceptors()
+        {
+            var defaultInterceptors = new List<ICommandInterceptor> {new LogCommandInterceptor()};
+            return defaultInterceptors;
         }
 
         #endregion

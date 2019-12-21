@@ -2,6 +2,7 @@
 using Castle.Core.Logging;
 using FlowMe.Command;
 using FlowMe.Command.Context;
+using FlowMe.Command.Executor;
 using FlowMe.Command.Interceptor;
 using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
@@ -24,8 +25,11 @@ namespace FlowMe.Engine.Configuration
         internal CommandContextFactory CommandContextFactory { get; set; }
         internal CommandConfig CommandConfig { get; set; }
         internal ICommandInterceptor CommandInvoker { get; set; }
-        internal IList<ICommandInterceptor> CustomPreInterceptors { get; set; }
-        internal IList<ICommandInterceptor> CustomPostInterceptors { get; set; }
-        internal IList<ICommandInterceptor> CommandInterceptors { get; set; }
+
+        internal ICommandExecutor CommandExecutor { get; set; }
+
+        internal List<ICommandInterceptor> CustomPreInterceptors { get; set; }
+        internal List<ICommandInterceptor> CustomPostInterceptors { get; set; }
+        internal List<ICommandInterceptor> CommandInterceptors { get; set; }
     }
 }
