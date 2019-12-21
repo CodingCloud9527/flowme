@@ -4,12 +4,16 @@ namespace FlowMe.Service
 {
     public abstract class ServiceBase
     {
-        protected ProcessEngineConfiguration _configuration;
+        public ProcessEngineConfiguration Configuration { get; set; }
 
+
+        public ServiceBase()
+        {
+        }
 
         public ServiceBase(ProcessEngineConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
     }
 }

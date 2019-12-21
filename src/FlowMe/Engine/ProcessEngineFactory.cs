@@ -9,6 +9,7 @@ using FlowMe.Command.Interceptor.Invoker;
 using FlowMe.Engine.Configuration;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
+using FlowMe.Service.Repository;
 
 namespace FlowMe.Engine
 {
@@ -46,6 +47,7 @@ namespace FlowMe.Engine
             InitCommandContextFactory();
             InitCommandChainSetting();
             InitDbContext();
+            InitService();
         }
 
 
@@ -75,7 +77,7 @@ namespace FlowMe.Engine
             _configuration.CommandContextFactory ??= new CommandContextFactory(_configuration);
         }
 
-        #region Init command executors
+        #region Init command setting
 
         private void InitDefaultCommandConfig()
         {
@@ -131,5 +133,10 @@ namespace FlowMe.Engine
         }
 
         #endregion
+
+        private void InitService()
+        {
+            _configuration.RepositoryService ??= new RepositoryService {Configuration = _configuration};
+        }
     }
 }

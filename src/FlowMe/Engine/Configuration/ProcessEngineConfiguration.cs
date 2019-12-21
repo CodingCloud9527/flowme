@@ -7,6 +7,7 @@ using FlowMe.Command.Interceptor;
 using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
+using FlowMe.Service;
 
 namespace FlowMe.Engine.Configuration
 {
@@ -31,5 +32,7 @@ namespace FlowMe.Engine.Configuration
         internal List<ICommandInterceptor> CustomPreInterceptors { get; set; }
         internal List<ICommandInterceptor> CustomPostInterceptors { get; set; }
         internal List<ICommandInterceptor> CommandInterceptors { get; set; }
+
+        internal IRepositoryService RepositoryService { get; set; }
     }
 }

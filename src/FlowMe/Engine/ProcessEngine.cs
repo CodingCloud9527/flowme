@@ -14,7 +14,7 @@ namespace FlowMe.Engine
         public ITaskService TaskService { get; }
         public IRuntimeService RuntimeService { get; }
         public IHistoryService HistoryService { get; }
-        public IRepositoryService RepositoryService => new RepositoryService(Configuration);
+        public IRepositoryService RepositoryService => new RepositoryService();
         public ProcessEngineConfiguration Configuration { get; }
     }
 }
