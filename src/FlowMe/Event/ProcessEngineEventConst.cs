@@ -1,6 +1,6 @@
 ﻿namespace FlowMe.Event
 {
-    public static class FlowMeEventConst
+    public static class ProcessEngineEventConst
     {
         public const string JOB_CANCELED = "JOB_CANCELED";
 
