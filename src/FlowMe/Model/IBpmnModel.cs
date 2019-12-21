@@ -9,6 +9,5 @@ namespace FlowMe.Model
         string Name { get; }
         string Id { get; }
         BpmnComponent GetComponentById(string id);
-        
     }
 }

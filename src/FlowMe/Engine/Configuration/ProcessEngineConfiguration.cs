@@ -11,10 +11,6 @@ namespace FlowMe.Engine.Configuration
 {
     public class ProcessEngineConfiguration
     {
-        public ProcessEngineConfiguration()
-        {
-        }
-
         private ILogger Logger
         {
             set => LoggerHolder.Logger = value;
@@ -26,9 +22,10 @@ namespace FlowMe.Engine.Configuration
         internal BpmnDbContext DbContext { get; set; }
         internal IList<IEventListener> CustomEventListeners { get; set; }
         internal CommandContextFactory CommandContextFactory { get; set; }
-
         internal CommandConfig CommandConfig { get; set; }
-
         internal ICommandInterceptor CommandInvoker { get; set; }
+        internal IList<ICommandInterceptor> CustomPreInterceptors { get; set; }
+        internal IList<ICommandInterceptor> CustomPostInterceptors { get; set; }
+        internal IList<ICommandInterceptor> CommandInterceptors { get; set; }
     }
 }

@@ -6,36 +6,25 @@ namespace FlowMe.Persistence.Entity
     [Table("FM_RE_PROCDEF")]
     public class ProcessDefinition
     {
-        [Key]
-        [StringLength(64)]
-        public string Id { get; set; }
+        [Key] [StringLength(64)] public string Id { get; set; }
 
-        [StringLength(255)]
-        public string Category { get; set; }
+        [StringLength(255)] public string Category { get; set; }
 
 
-        [Required]
-        [StringLength(255)]
-        public string Key { get; set; }
+        [Required] [StringLength(255)] public string Key { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string Name { get; set; }
+        [Required] [StringLength(255)] public string Name { get; set; }
 
 
         public int Version { get; set; }
 
 
-        [Required]
-        public ProcessDeployment Deployment { get; set; }
+        [Required] public ProcessDeployment Deployment { get; set; }
 
 
-        [Required]
-        [StringLength(5000)]
-        public string DefinitionXml { get; set; }
+        [Required] [StringLength(5000)] public string DefinitionXml { get; set; }
 
 
-        [StringLength(5000)]
-        public string Description { get; set; }
+        [StringLength(5000)] public string Description { get; set; }
     }
 }

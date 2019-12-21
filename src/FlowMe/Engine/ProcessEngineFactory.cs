@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using FlowMe.Command;
 using FlowMe.Command.Context;
+using FlowMe.Command.Interceptor;
 using FlowMe.Command.Interceptor.Invoker;
 using FlowMe.Engine.Configuration;
 using FlowMe.Event.Dispatcher;
@@ -61,6 +63,8 @@ namespace FlowMe.Engine
         private void InitCommandExecutors()
         {
             InitDefaultCommandConfig();
+            InitDefaultCommandInvoker();
+            InitCommandInterceptors();
         }
 
         private void InitCommandContextFactory()
@@ -79,8 +83,12 @@ namespace FlowMe.Engine
         {
             _configuration.CommandInvoker ??= new CommandInvoker();
         }
-        
+
+        private void InitCommandInterceptors()
+        {
+            _configuration.CommandInterceptors ??= new List<ICommandInterceptor>();
+        }
+
         #endregion
-     
     }
 }

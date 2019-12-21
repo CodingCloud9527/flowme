@@ -8,9 +8,8 @@ namespace FlowMe.Service
 {
     public class DeploymentBuilder
     {
-        private readonly ProcessDefinition _definition = new ProcessDefinition();
-
         private readonly BpmnDbContext _dbContext;
+        private readonly ProcessDefinition _definition = new ProcessDefinition();
 
         public DeploymentBuilder(ProcessEngineConfiguration configuration)
         {
@@ -22,7 +21,7 @@ namespace FlowMe.Service
             if (string.IsNullOrWhiteSpace(_definition.Key) || string.IsNullOrWhiteSpace(_definition.DefinitionXml) ||
                 string.IsNullOrWhiteSpace(_definition.Name))
             {
-                throw new ArgumentException($"Some property of deployment must not be null!");
+                throw new ArgumentException("Some property of deployment must not be null!");
             }
 
             var deploymentDb = _dbContext.ProcessDeployments;

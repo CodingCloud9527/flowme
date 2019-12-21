@@ -5,7 +5,6 @@ namespace FlowMe.Command.Context
 {
     public class CommandContext
     {
-        public ProcessEngineConfiguration Configuration { get; }
         private readonly Type _commandType;
 
         public CommandContext(Type commandType, ProcessEngineConfiguration configuration)
@@ -13,5 +12,7 @@ namespace FlowMe.Command.Context
             Configuration = configuration;
             _commandType = commandType;
         }
+
+        public ProcessEngineConfiguration Configuration { get; }
     }
 }

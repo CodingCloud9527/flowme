@@ -11,10 +11,8 @@ namespace FlowMe.Model
 {
     internal class BpmnModel : IBpmnModel
     {
-        private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
         private readonly Dictionary<string, BpmnComponent> _components = new Dictionary<string, BpmnComponent>();
-
-        private StartEvent _startEvent;
+        private readonly HashSet<BpmnComponent> _unResolved = new HashSet<BpmnComponent>();
 
         public BpmnModel(string bpmnContent)
         {
@@ -24,10 +22,21 @@ namespace FlowMe.Model
             //TODO: handle if some components unresolved
         }
 
+        public StartEvent Entry { get; private set; }
+
+        public string Name { get; private set; }
+
+        public string Id { get; private set; }
+
+        public BpmnComponent GetComponentById(string id)
+        {
+            return _components[id];
+        }
+
 
         private void Assemble()
         {
-            _startEvent = (StartEvent) _unResolved.Single(e => e is StartEvent);
+            Entry = (StartEvent) _unResolved.Single(e => e is StartEvent);
             var endEventCntBeforeAssemble = _unResolved.Count(e => e is EndEvent);
 
             var sequenceFlows = _unResolved.OfType<SequenceFlow>().ToHashSet();
@@ -55,7 +64,7 @@ namespace FlowMe.Model
 
             var endEventCntAfterAssemble = _unResolved.Count(e => e is EndEvent);
 
-            if (_unResolved.Contains(_startEvent) || endEventCntAfterAssemble == endEventCntBeforeAssemble)
+            if (_unResolved.Contains(Entry) || endEventCntAfterAssemble == endEventCntBeforeAssemble)
                 throw new Exception(
                     "An error occurred while constructing flow diagram. Make sure that the flow diagram contains start event and end event!");
         }
@@ -98,17 +107,6 @@ namespace FlowMe.Model
         {
             _unResolved.Remove(component);
             _components[component.Id] = component;
-        }
-
-        public StartEvent Entry => _startEvent;
-
-        public string Name { get; private set; }
-
-        public string Id { get; private set; }
-
-        public BpmnComponent GetComponentById(string id)
-        {
-            return _components[id];
         }
     }
 }

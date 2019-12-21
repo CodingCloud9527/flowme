@@ -10,9 +10,9 @@ namespace FlowMe.Event.Dispatcher
     internal class EventDispatcher : IEventDispatcher
     {
         private readonly ISet<IEventListener> _customListeners;
-        private readonly ISet<IEventListener> _systemListeners;
 
         private readonly ILogger _logger = LoggerHolder.Logger;
+        private readonly ISet<IEventListener> _systemListeners;
 
         internal EventDispatcher()
         {
