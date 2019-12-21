@@ -1,6 +1,6 @@
-﻿using FlowMe.Engine.Operation;
-using FlowMe.Engine.Operation.Common;
-using FlowMe.Engine.Operation.Definition;
+﻿using FlowMe.Engine.Configuration;
+using FlowMe.Service;
+using FlowMe.Service.Repository;
 
 namespace FlowMe.Engine
 {
@@ -13,11 +13,10 @@ namespace FlowMe.Engine
             _configuration = configuration;
         }
 
-
-        public ITaskOp TaskOp { get; }
-        public IRuntimeOp RuntimeOp { get; }
-        public IHisOp HisOp { get; }
-        public IDefOp DefOp => new DefOp(_configuration);
-        public ICommonOp CommonOp => new CommonOp(_configuration);
+        public ITaskService TaskService { get; }
+        public IRuntimeService RuntimeService { get; }
+        public IHistoryService HistoryService { get; }
+        public IRepositoryService RepositoryService => new RepositoryService(_configuration);
+        public ProcessEngineConfiguration Configuration => _configuration;
     }
 }

@@ -1,14 +1,14 @@
-﻿using FlowMe.Engine.Operation;
+﻿using FlowMe.Engine.Configuration;
+using FlowMe.Service;
 
 namespace FlowMe.Engine
 {
     public interface IProcessEngine
     {
-        ITaskOp TaskOp { get; }
-        IRuntimeOp RuntimeOp { get; }
-        IHisOp HisOp { get; }
-        IDefOp DefOp { get; }
-
-        ICommonOp CommonOp { get; }
+        ITaskService TaskService { get; }
+        IRuntimeService RuntimeService { get; }
+        IHistoryService HistoryService { get; }
+        IRepositoryService RepositoryService { get; }
+        ProcessEngineConfiguration Configuration { get; }
     }
 }

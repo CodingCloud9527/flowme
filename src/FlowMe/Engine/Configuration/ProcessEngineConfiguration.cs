@@ -4,7 +4,7 @@ using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
 
-namespace FlowMe.Engine
+namespace FlowMe.Engine.Configuration
 {
     public class ProcessEngineConfiguration
     {

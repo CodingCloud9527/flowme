@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
+using FlowMe.Engine.Configuration;
 using FlowMe.Persistence;
 using FlowMe.Persistence.Entity;
 
-namespace FlowMe.Engine.Operation.Definition.Deployment
+namespace FlowMe.Service
 {
     public class DeploymentBuilder
     {

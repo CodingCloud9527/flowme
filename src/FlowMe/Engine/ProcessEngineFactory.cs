@@ -1,4 +1,5 @@
 ﻿using System;
+using FlowMe.Engine.Configuration;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
 
@@ -34,8 +35,8 @@ namespace FlowMe.Engine
 
         private void Init()
         {
-            InitDbContext();
             InitEventDispatcher();
+            InitDbContext();
         }
 
 

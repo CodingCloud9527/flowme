@@ -1,8 +1,8 @@
 ﻿using FlowMe.Engine.Task;
 
-namespace FlowMe.Engine.Operation
+namespace FlowMe.Service
 {
-    public interface ITaskOp
+    public interface ITaskService
     {
         ITaskQueryable CreateTaskQuery();
     }
