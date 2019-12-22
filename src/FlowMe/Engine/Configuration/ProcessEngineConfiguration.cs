@@ -21,7 +21,7 @@ namespace FlowMe.Engine.Configuration
 
         public IEventDispatcher EventDispatcher { get; internal set; }
 
-        internal BpmnDbContext DbContext { get; set; }
+        public BpmnDbContext DbContext { get; set; }
         internal IList<IEventListener> CustomEventListeners { get; set; }
         internal CommandContextFactory CommandContextFactory { get; set; }
         internal CommandConfig CommandConfig { get; set; }

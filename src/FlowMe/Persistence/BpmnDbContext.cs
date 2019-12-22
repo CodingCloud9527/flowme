@@ -17,8 +17,8 @@ namespace FlowMe.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProcessDeployment>()
-                .HasAlternateKey(p => p.Name);
+            // modelBuilder.Entity<ProcessDeployment>()
+            //     .HasAlternateKey(p => p.Name);
         }
     }
 }

@@ -6,7 +6,8 @@ namespace FlowMe.Command.Interceptor
     {
         public override T Intercept<T>(ICommand<T> command, CommandConfig commandConfig)
         {
-            var transaction = ContextRecorder.Configuration.DbContext.Database.BeginTransaction();
+            var dbContext = ContextRecorder.Configuration.DbContext;
+            var transaction = dbContext.Database.BeginTransaction();
             var commandContext = ContextRecorder.CommandContext;
             try
             {
@@ -16,6 +17,7 @@ namespace FlowMe.Command.Interceptor
             {
                 if (commandContext.CommandException == null)
                 {
+                    dbContext.SaveChanges();
                     transaction.Commit();
                 }
                 else

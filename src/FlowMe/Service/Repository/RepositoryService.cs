@@ -11,7 +11,12 @@ namespace FlowMe.Service.Repository
 
         public DeploymentBuilder CreateDeployment()
         {
-            return CommandExecutor.Execute(new CreateDeploymentCmd());
+            return CommandExecutor.Execute(new CreateDeploymentCmd(this));
+        }
+
+        public void Deploy(DeploymentBuilder deploymentBuilder)
+        {
+            CommandExecutor.Execute(new DeployCmd(deploymentBuilder));
         }
     }
 }

@@ -53,7 +53,7 @@ namespace FlowMe.Engine
 
         private void InitDbContext()
         {
-            _configuration.DbContext = new BpmnDbContext();
+            _configuration.DbContext ??= new BpmnDbContext();
         }
 
         private void InitEventDispatcher()

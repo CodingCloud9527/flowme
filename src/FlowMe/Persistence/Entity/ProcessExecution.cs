@@ -6,9 +6,11 @@ namespace FlowMe.Persistence.Entity
     [Table("FM_RU_EXECUTION")]
     public class ProcessExecution
     {
-        [Key] [StringLength(64)] public string Id { get; set; }
+        [Key]
+        [StringLength(64)] public string Id { get; set; }
 
-        [Required] public ProcessInstance Instance { get; set; }
+        [Required]
+        public ProcessInstance Instance { get; set; }
 
         [StringLength(255)] public string BusinessKey { get; set; }
 

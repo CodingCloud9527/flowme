@@ -1,75 +1,48 @@
-using System;
-using System.Linq;
 using FlowMe.Persistence;
 using FlowMe.Persistence.Entity;
+using FlowMe.Service.Repository;
 
 namespace FlowMe.ConcreteCommand.Deployment
 {
     public class DeploymentBuilder
     {
-        private readonly BpmnDbContext _dbContext;
-        private readonly ProcessDefinition _definition = new ProcessDefinition();
+        private readonly RepositoryService _repositoryService;
 
-        public DeploymentBuilder(BpmnDbContext dbContext)
+        internal BpmnDbContext BpmnDbContext { get; set; }
+        internal ProcessDefinition Definition { get; } = new ProcessDefinition();
+
+        public DeploymentBuilder(RepositoryService repositoryService)
         {
-            _dbContext = dbContext;
+            _repositoryService = repositoryService;
+            BpmnDbContext = _repositoryService.Configuration.DbContext;
         }
 
         public void Deploy()
         {
-            if (string.IsNullOrWhiteSpace(_definition.Key) || string.IsNullOrWhiteSpace(_definition.DefinitionXml) ||
-                string.IsNullOrWhiteSpace(_definition.Name))
-            {
-                throw new ArgumentException("Some property of deployment must not be null!");
-            }
-
-            var deploymentDb = _dbContext.ProcessDeployments;
-            var definitionDb = _dbContext.ProcessDefs;
-
-            var def = deploymentDb.FirstOrDefault(e => e.Name == _definition.Name);
-
-            if (def == null)
-            {
-                var processDeployment = new ProcessDeployment
-                {
-                    Category = _definition.Category,
-                    DeployTime = DateTime.UtcNow,
-                    Name = _definition.Name
-                };
-                deploymentDb.Add(processDeployment);
-                _definition.Version = 1;
-                _definition.Deployment = processDeployment;
-                definitionDb.Add(_definition);
-            }
-            else
-            {
-                var processDefinition = definitionDb.First(e => e.Name == _definition.Name);
-                processDefinition.Version++;
-                definitionDb.Update(processDefinition);
-            }
+            _repositoryService.Deploy(this);
         }
 
         public DeploymentBuilder Name(string name)
         {
-            _definition.Name = name;
+            Definition.Name = name;
             return this;
         }
 
         public DeploymentBuilder Category(string category)
         {
-            _definition.Category = category;
+            Definition.Category = category;
             return this;
         }
 
         public DeploymentBuilder Key(string key)
         {
-            _definition.Key = key;
+            Definition.Key = key;
             return this;
         }
 
         public DeploymentBuilder BpmnContent(string content)
         {
-            _definition.DefinitionXml = content;
+            Definition.DefinitionXml = content;
             return this;
         }
     }

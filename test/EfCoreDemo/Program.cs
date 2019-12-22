@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlowMe.Engine;
+using FlowMe.Engine.Configuration;
 
 namespace EfCoreDemo
 {
@@ -6,7 +7,13 @@ namespace EfCoreDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var demoDbContext = new DemoDbContext();
+            var processEngine = ProcessEngineFactory.Instance.Create(new ProcessEngineConfiguration {DbContext = demoDbContext});
+            processEngine.RepositoryService.CreateDeployment()
+                .Key("demokey")
+                .Name("demoname")
+                .BpmnContent("fake")
+                .Deploy();
         }
     }
 }
