@@ -6,14 +6,14 @@ namespace FlowMe.Command.Interceptor
     {
         public override T Intercept<T>(ICommand<T> command, CommandConfig commandConfig)
         {
-            LoggerHolder.Logger.Debug($"starting [{command.GetType().FullName}]");
+            LoggerHolder.Logger.Debug($"Start execute [{command.GetType().FullName}]");
             try
             {
                 return Next.Intercept(command, commandConfig);
             }
             finally
             {
-                LoggerHolder.Logger.Debug($"finished [{command.GetType().FullName}]");
+                LoggerHolder.Logger.Debug($"Finished [{command.GetType().FullName}]");
             }
         }
     }

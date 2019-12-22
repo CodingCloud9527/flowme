@@ -7,6 +7,7 @@ using FlowMe.Command.Executor;
 using FlowMe.Command.Interceptor;
 using FlowMe.Command.Interceptor.Invoker;
 using FlowMe.Engine.Configuration;
+using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
 using FlowMe.Service.Repository;
@@ -48,6 +49,7 @@ namespace FlowMe.Engine
             InitCommandChainSetting();
             InitDbContext();
             InitService();
+            LoggerHolder.Logger.Debug("Process Engine started.");
         }
 
 
