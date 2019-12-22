@@ -49,7 +49,7 @@ namespace FlowMe.Engine
             InitCommandChainSetting();
             InitDbContext();
             InitService();
-            LoggerHolder.Logger.Debug("Process Engine started.");
+            LoggerHolder.Logger.Debug("FlowMe process Engine started.");
         }
 
 
