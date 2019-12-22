@@ -5,7 +5,7 @@ using FlowMe.Engine.Configuration;
 
 namespace FlowMe.Command.Context
 {
-    public class ContextRecorder
+    public static class ContextRecorder
     {
         private static readonly AsyncLocal<Stack<CommandContext>> CommandContextStack = new AsyncLocal<Stack<CommandContext>>();
 
