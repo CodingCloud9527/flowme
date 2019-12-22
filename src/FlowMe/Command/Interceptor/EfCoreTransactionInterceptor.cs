@@ -1,4 +1,5 @@
 using FlowMe.Command.Context;
+using FlowMe.Engine.Logger;
 
 namespace FlowMe.Command.Interceptor
 {
@@ -23,6 +24,7 @@ namespace FlowMe.Command.Interceptor
                 else
                 {
                     transaction.Rollback();
+                    LoggerHolder.Logger.Warn($"Command [{commandContext.CommandType.FullName}] has been rollback. nothing will be change.");
                 }
             }
         }
