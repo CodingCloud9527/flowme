@@ -1,19 +1,18 @@
 using System;
 using System.Linq;
-using FlowMe.Engine.Configuration;
 using FlowMe.Persistence;
 using FlowMe.Persistence.Entity;
 
-namespace FlowMe.Service
+namespace FlowMe.ConcreteCommand.Deployment
 {
     public class DeploymentBuilder
     {
         private readonly BpmnDbContext _dbContext;
         private readonly ProcessDefinition _definition = new ProcessDefinition();
 
-        public DeploymentBuilder(ProcessEngineConfiguration configuration)
+        public DeploymentBuilder(BpmnDbContext dbContext)
         {
-            _dbContext = configuration.DbContext;
+            _dbContext = dbContext;
         }
 
         public void Deploy()

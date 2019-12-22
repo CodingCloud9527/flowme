@@ -128,7 +128,12 @@ namespace FlowMe.Engine
 
         private List<ICommandInterceptor> DefaultInterceptors()
         {
-            var defaultInterceptors = new List<ICommandInterceptor> {new LogCommandInterceptor()};
+            var defaultInterceptors = new List<ICommandInterceptor>
+            {
+                new LogCommandInterceptor(),
+                new CommandContextInterceptor(_configuration.CommandContextFactory, _configuration),
+                new EfCoreTransactionInterceptor()
+            };
             return defaultInterceptors;
         }
 
@@ -136,7 +141,7 @@ namespace FlowMe.Engine
 
         private void InitService()
         {
-            _configuration.RepositoryService ??= new RepositoryService {Configuration = _configuration};
+            _configuration.RepositoryService ??= new RepositoryService(_configuration);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FlowMe.Engine.Configuration;
+﻿using FlowMe.Command.Executor;
+using FlowMe.Engine.Configuration;
 
 namespace FlowMe.Service
 {
@@ -7,13 +8,11 @@ namespace FlowMe.Service
         public ProcessEngineConfiguration Configuration { get; set; }
 
 
-        public ServiceBase()
-        {
-        }
-
-        public ServiceBase(ProcessEngineConfiguration configuration)
+        protected ServiceBase(ProcessEngineConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        protected ICommandExecutor CommandExecutor => Configuration.CommandExecutor;
     }
 }

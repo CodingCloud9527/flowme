@@ -8,7 +8,15 @@ namespace FlowMe.Command.Interceptor.Invoker
         public virtual T Intercept<T>(ICommand<T> command, CommandConfig commandConfig)
         {
             var commandContext = ContextRecorder.CommandContext;
-            return command.Execute(commandContext);
+            try
+            {
+                return command.Execute(commandContext);
+            }
+            catch (Exception e)
+            {
+                commandContext.CommandException = e;
+                throw;
+            }
         }
 
         public ICommandInterceptor Next
