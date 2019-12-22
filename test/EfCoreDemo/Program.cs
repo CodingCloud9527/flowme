@@ -12,7 +12,7 @@ namespace EfCoreDemo
             processEngine.RepositoryService.CreateDeployment()
                 .Key("demokey")
                 .Name("demoname")
-                .BpmnContent("fake")
+                .BpmnContent("")
                 .Deploy();
         }
     }

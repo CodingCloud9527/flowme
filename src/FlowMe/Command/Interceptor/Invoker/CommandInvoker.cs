@@ -1,5 +1,6 @@
 using System;
 using FlowMe.Command.Context;
+using FlowMe.Engine.Logger;
 
 namespace FlowMe.Command.Interceptor.Invoker
 {
@@ -15,7 +16,8 @@ namespace FlowMe.Command.Interceptor.Invoker
             catch (Exception e)
             {
                 commandContext.CommandException = e;
-                throw;
+                LoggerHolder.Logger.Error($"An error occuring while executing [{command.GetType().FullName}], reason: {e.Message}");
+                return default;
             }
         }
 
