@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Castle.Core.Logging;
 using FlowMe.Command;
 using FlowMe.Command.Context;
 using FlowMe.Command.Executor;
@@ -8,12 +7,13 @@ using FlowMe.Engine.Logger;
 using FlowMe.Event.Dispatcher;
 using FlowMe.Persistence;
 using FlowMe.Service;
+using log4net;
 
 namespace FlowMe.Engine.Configuration
 {
     public class ProcessEngineConfiguration
     {
-        private ILogger Logger
+        private ILog Logger
         {
             set => LoggerHolder.Logger = value;
             get => LoggerHolder.Logger;

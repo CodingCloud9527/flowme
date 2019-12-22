@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using FlowMe.Engine.Logger;
+using log4net;
 
 namespace FlowMe.Event.Dispatcher
 {
@@ -11,7 +11,7 @@ namespace FlowMe.Event.Dispatcher
     {
         private readonly ISet<IEventListener> _customListeners;
 
-        private readonly ILogger _logger = LoggerHolder.Logger;
+        private readonly ILog _logger = LoggerHolder.Logger;
         private readonly ISet<IEventListener> _systemListeners;
 
         internal EventDispatcher()

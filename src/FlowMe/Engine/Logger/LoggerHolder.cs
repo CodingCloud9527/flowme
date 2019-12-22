@@ -1,14 +1,25 @@
-﻿using Castle.Core.Logging;
+﻿using log4net;
+using log4net.Config;
 
 namespace FlowMe.Engine.Logger
 {
     internal static class LoggerHolder
     {
-        private static ILogger _logger;
+        private static ILog _logger;
 
-        internal static ILogger Logger
+        internal static ILog Logger
         {
-            get => _logger ?? NullLogger.Instance;
+            get
+            {
+                if (_logger == null)
+                {
+                    var loggerRepository = LogManager.CreateRepository("FlowMe");
+                    BasicConfigurator.Configure(loggerRepository);
+                    _logger = LogManager.GetLogger(loggerRepository.Name, "FlowMe");
+                }
+
+                return _logger;
+            }
 
             set
             {
