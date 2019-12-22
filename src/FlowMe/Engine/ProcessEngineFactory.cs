@@ -77,6 +77,11 @@ namespace FlowMe.Engine
             _configuration.CommandContextFactory ??= new CommandContextFactory(_configuration);
         }
 
+        private void InitService()
+        {
+            _configuration.RepositoryService ??= new RepositoryService(_configuration);
+        }
+
         #region Init command setting
 
         private void InitDefaultCommandConfig()
@@ -138,10 +143,5 @@ namespace FlowMe.Engine
         }
 
         #endregion
-
-        private void InitService()
-        {
-            _configuration.RepositoryService ??= new RepositoryService(_configuration);
-        }
     }
 }

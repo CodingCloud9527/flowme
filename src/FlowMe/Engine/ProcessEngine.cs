@@ -5,13 +5,12 @@ namespace FlowMe.Engine
 {
     public class ProcessEngine : IProcessEngine
     {
-        public ProcessEngineConfiguration Configuration { get; }
-
-
         public ProcessEngine(ProcessEngineConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public ProcessEngineConfiguration Configuration { get; }
 
         public ITaskService TaskService { get; }
         public IRuntimeService RuntimeService { get; }

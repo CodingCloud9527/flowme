@@ -5,13 +5,12 @@ namespace FlowMe.Service
 {
     public abstract class ServiceBase
     {
-        public ProcessEngineConfiguration Configuration { get; set; }
-
-
         protected ServiceBase(ProcessEngineConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public ProcessEngineConfiguration Configuration { get; set; }
 
         protected ICommandExecutor CommandExecutor => Configuration.CommandExecutor;
     }

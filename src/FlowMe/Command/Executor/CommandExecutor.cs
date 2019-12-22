@@ -2,16 +2,17 @@ using FlowMe.Command.Interceptor;
 
 namespace FlowMe.Command.Executor
 {
-    class CommandExecutor : ICommandExecutor
+    internal class CommandExecutor : ICommandExecutor
     {
         private readonly ICommandInterceptor _first;
-        public CommandConfig CommandConfig { get; }
 
         public CommandExecutor(CommandConfig commandConfig, ICommandInterceptor first)
         {
             CommandConfig = commandConfig;
             _first = first;
         }
+
+        public CommandConfig CommandConfig { get; }
 
         public T Execute<T>(ICommand<T> command)
         {
