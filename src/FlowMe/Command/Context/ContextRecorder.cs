@@ -33,6 +33,16 @@ namespace FlowMe.Command.Context
             set => OperateStack(ConfigurationStack).Push(value);
         }
 
+        public static CommandContext PopCommandContext()
+        {
+            return OperateStack(CommandContextStack).Pop();
+        }
+
+        public static ProcessEngineConfiguration PopConfiguration()
+        {
+            return OperateStack(ConfigurationStack).Pop();
+        }
+
         private static Stack<T> OperateStack<T>(AsyncLocal<Stack<T>> asyncLocal)
         {
             var localStack = asyncLocal.Value;
