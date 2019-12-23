@@ -8,8 +8,8 @@ namespace FlowMe.Persistence.Entity
     public class ProcessDeployment
     {
         [Key]
-        [StringLength(64)]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(255)]

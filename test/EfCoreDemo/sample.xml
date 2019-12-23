@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_06j6xfp" targetNamespace="http://bpmn.io/schema/bpmn">
+    <bpmn:process id="Process_1" isExecutable="false">
+        <bpmn:startEvent id="StartEvent_1" name="开始">
+            <bpmn:outgoing>SequenceFlow_01k4xeo</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:userTask id="UserTask_1kh5jyv" name="策划工单">
+            <bpmn:extensionElements>
+                <camunda:properties />
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_01k4xeo</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0pd0fko</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_11kjtz3</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0qyup62</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_01k4xeo" sourceRef="StartEvent_1" targetRef="UserTask_1kh5jyv" />
+        <bpmn:exclusiveGateway id="ExclusiveGateway_1x0q865" name="是否抢修">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="V_WORKORDER" value="1 = 1 AND TEXT_检修分类_STRING = &#39;抢修&#39;" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_0qyup62</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_1ryh977</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1rd0oae</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:sequenceFlow id="SequenceFlow_0qyup62" name="提交" sourceRef="UserTask_1kh5jyv" targetRef="ExclusiveGateway_1x0q865" />
+        <bpmn:userTask id="UserTask_01h6urt" name="点检班长审核">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="机械点检班长" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1ryh977</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0pd0fko</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1obc033</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_1ryh977" name="否" sourceRef="ExclusiveGateway_1x0q865" targetRef="UserTask_01h6urt">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:userTask id="UserTask_1jsv31a" name="工单实施">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="技术员" />
+                    <camunda:property name="点检员" />
+                    <camunda:property name="维修班长" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1rd0oae</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0vk2qy9</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_1y0fhda</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0eh8ps3</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0vl1zaj</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0gmk7w6</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_1aozhzt</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_1rd0oae" name="是" sourceRef="ExclusiveGateway_1x0q865" targetRef="UserTask_1jsv31a" />
+        <bpmn:sequenceFlow id="SequenceFlow_0pd0fko" name="不通过" sourceRef="UserTask_01h6urt" targetRef="UserTask_1kh5jyv">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:exclusiveGateway id="ExclusiveGateway_1v7aqhb" name="是否小修">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="V_WORKORDER" value="1 = 1 AND TEXT_检修分类_STRING = &#39;小修&#39;" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1obc033</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0vk2qy9</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_0ohbfnb</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:sequenceFlow id="SequenceFlow_1obc033" name="通过" sourceRef="UserTask_01h6urt" targetRef="ExclusiveGateway_1v7aqhb" />
+        <bpmn:sequenceFlow id="SequenceFlow_0vk2qy9" name="是" sourceRef="ExclusiveGateway_1v7aqhb" targetRef="UserTask_1jsv31a" />
+        <bpmn:userTask id="UserTask_1ghlpay" name="专业主管审核">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="专业主管" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_0ohbfnb</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_11kjtz3</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1y0fhda</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_0ohbfnb" name="否" sourceRef="ExclusiveGateway_1v7aqhb" targetRef="UserTask_1ghlpay">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_11kjtz3" name="不通过" sourceRef="UserTask_1ghlpay" targetRef="UserTask_1kh5jyv">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_1y0fhda" name="通过" sourceRef="UserTask_1ghlpay" targetRef="UserTask_1jsv31a" />
+        <bpmn:exclusiveGateway id="ExclusiveGateway_1c8amu8" name="处理措施">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="V_WORKORDER" value="1 = 1 AND TEXT_处理措施_STRING = &#39;实施&#39;" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1aozhzt</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_1jrhz8m</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1i0xgzr</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:sequenceFlow id="SequenceFlow_1aozhzt" sourceRef="UserTask_1jsv31a" targetRef="ExclusiveGateway_1c8amu8" />
+        <bpmn:exclusiveGateway id="ExclusiveGateway_0kvt7ji" name="是否自营2">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="V_WORKORDER" value="1 = 1 AND TEXT_委托方式_STRING = &#39;自营&#39;" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1jrhz8m</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_1t5uusi</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1d7xv9j</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:sequenceFlow id="SequenceFlow_1jrhz8m" name="取消" sourceRef="ExclusiveGateway_1c8amu8" targetRef="ExclusiveGateway_0kvt7ji">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:exclusiveGateway id="ExclusiveGateway_0c5rlka" name="是否自营1">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="V_WORKORDER" value="1 = 1 AND TEXT_委托方式_STRING = &#39;自营&#39;" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1i0xgzr</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0sonk8j</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_024jw1i</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:sequenceFlow id="SequenceFlow_1i0xgzr" name="实施" sourceRef="ExclusiveGateway_1c8amu8" targetRef="ExclusiveGateway_0c5rlka" />
+        <bpmn:userTask id="UserTask_1202f4b" name="工单验收">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="技术员" />
+                    <camunda:property name="点检员" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_0sonk8j</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0siix6s</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_1q5l94z</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_0sonk8j" name="否" sourceRef="ExclusiveGateway_0c5rlka" targetRef="UserTask_1202f4b">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:userTask id="UserTask_0gxvz1v" name="实绩录入">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="点检员" />
+                    <camunda:property name="技术员" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_0siix6s</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_024jw1i</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0jm4kf1</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_0siix6s" name="通过" sourceRef="UserTask_1202f4b" targetRef="UserTask_0gxvz1v" />
+        <bpmn:endEvent id="EndEvent_0j43457" name="结束">
+            <bpmn:extensionElements>
+                <camunda:properties />
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_0jm4kf1</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_1q5l94z</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_1l228j8</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow id="SequenceFlow_0jm4kf1" name="通过" sourceRef="UserTask_0gxvz1v" targetRef="EndEvent_0j43457" />
+        <bpmn:sequenceFlow id="SequenceFlow_1q5l94z" name="不通过" sourceRef="UserTask_1202f4b" targetRef="EndEvent_0j43457">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_024jw1i" name="是" sourceRef="ExclusiveGateway_0c5rlka" targetRef="UserTask_0gxvz1v" />
+        <bpmn:userTask id="UserTask_0xjk93d" name="点检班长取消审核">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="技术员" />
+                    <camunda:property name="机械点检班长" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1t5uusi</bpmn:incoming>
+            <bpmn:incoming>SequenceFlow_0b3pw2m</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_03uq1b4</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_0vl1zaj</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_1t5uusi" name="是" sourceRef="ExclusiveGateway_0kvt7ji" targetRef="UserTask_0xjk93d" />
+        <bpmn:userTask id="UserTask_1lcdsh1" name="专业主管取消审核">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="专业主管" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_03uq1b4</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_1l228j8</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_0eh8ps3</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_03uq1b4" name="通过" sourceRef="UserTask_0xjk93d" targetRef="UserTask_1lcdsh1" />
+        <bpmn:sequenceFlow id="SequenceFlow_1l228j8" name="通过" sourceRef="UserTask_1lcdsh1" targetRef="EndEvent_0j43457" />
+        <bpmn:sequenceFlow id="SequenceFlow_0eh8ps3" name="不通过" sourceRef="UserTask_1lcdsh1" targetRef="UserTask_1jsv31a">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_0vl1zaj" name="不通过" sourceRef="UserTask_0xjk93d" targetRef="UserTask_1jsv31a">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:userTask id="UserTask_1ppklae" name="点检员取消审核">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="点检员" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>SequenceFlow_1d7xv9j</bpmn:incoming>
+            <bpmn:outgoing>SequenceFlow_0b3pw2m</bpmn:outgoing>
+            <bpmn:outgoing>SequenceFlow_0gmk7w6</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="SequenceFlow_1d7xv9j" name="否" sourceRef="ExclusiveGateway_0kvt7ji" targetRef="UserTask_1ppklae">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_0b3pw2m" name="通过" sourceRef="UserTask_1ppklae" targetRef="UserTask_0xjk93d" />
+        <bpmn:sequenceFlow id="SequenceFlow_0gmk7w6" name="不通过" sourceRef="UserTask_1ppklae" targetRef="UserTask_1jsv31a">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+        </bpmn:sequenceFlow>
+    </bpmn:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+                <dc:Bounds x="148" y="102" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="155" y="145" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="UserTask_1kh5jyv_di" bpmnElement="UserTask_1kh5jyv">
+                <dc:Bounds x="234" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_01k4xeo_di" bpmnElement="SequenceFlow_01k4xeo">
+                <di:waypoint x="184" y="120" />
+                <di:waypoint x="234" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_1x0q865_di" bpmnElement="ExclusiveGateway_1x0q865" isMarkerVisible="true">
+                <dc:Bounds x="427" y="95" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="430" y="76" width="44" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0qyup62_di" bpmnElement="SequenceFlow_0qyup62">
+                <di:waypoint x="334" y="120" />
+                <di:waypoint x="427" y="120" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="370" y="102" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_01h6urt_di" bpmnElement="UserTask_01h6urt">
+                <dc:Bounds x="563" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1ryh977_di" bpmnElement="SequenceFlow_1ryh977">
+                <di:waypoint x="477" y="120" />
+                <di:waypoint x="563" y="120" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="516" y="102" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_1jsv31a_di" bpmnElement="UserTask_1jsv31a">
+                <dc:Bounds x="234" y="216" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1rd0oae_di" bpmnElement="SequenceFlow_1rd0oae">
+                <di:waypoint x="452" y="145" />
+                <di:waypoint x="452" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="462" y="197" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0pd0fko_di" bpmnElement="SequenceFlow_0pd0fko">
+                <di:waypoint x="613" y="80" />
+                <di:waypoint x="613" y="28" />
+                <di:waypoint x="284" y="28" />
+                <di:waypoint x="284" y="80" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="432" y="10" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_1v7aqhb_di" bpmnElement="ExclusiveGateway_1v7aqhb" isMarkerVisible="true">
+                <dc:Bounds x="756" y="94" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="759" y="75" width="44" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1obc033_di" bpmnElement="SequenceFlow_1obc033">
+                <di:waypoint x="663" y="119" />
+                <di:waypoint x="756" y="119" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="699" y="101" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0vk2qy9_di" bpmnElement="SequenceFlow_0vk2qy9">
+                <di:waypoint x="781" y="144" />
+                <di:waypoint x="781" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="791" y="197" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_1ghlpay_di" bpmnElement="UserTask_1ghlpay">
+                <dc:Bounds x="962" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0ohbfnb_di" bpmnElement="SequenceFlow_0ohbfnb">
+                <di:waypoint x="806" y="119" />
+                <di:waypoint x="884" y="119" />
+                <di:waypoint x="884" y="120" />
+                <di:waypoint x="962" y="120" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="917" y="103" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_11kjtz3_di" bpmnElement="SequenceFlow_11kjtz3">
+                <di:waypoint x="1012" y="80" />
+                <di:waypoint x="1012" y="-40" />
+                <di:waypoint x="284" y="-40" />
+                <di:waypoint x="284" y="80" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="632" y="-58" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1y0fhda_di" bpmnElement="SequenceFlow_1y0fhda">
+                <di:waypoint x="1012" y="160" />
+                <di:waypoint x="1012" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="983" y="188" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_1c8amu8_di" bpmnElement="ExclusiveGateway_1c8amu8" isMarkerVisible="true">
+                <dc:Bounds x="259" y="376" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="200" y="394" width="44" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1aozhzt_di" bpmnElement="SequenceFlow_1aozhzt">
+                <di:waypoint x="284" y="296" />
+                <di:waypoint x="284" y="376" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_0kvt7ji_di" bpmnElement="ExclusiveGateway_0kvt7ji" isMarkerVisible="true">
+                <dc:Bounds x="427" y="376" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="487" y="394" width="50" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1jrhz8m_di" bpmnElement="SequenceFlow_1jrhz8m">
+                <di:waypoint x="309" y="401" />
+                <di:waypoint x="427" y="401" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="358" y="383" width="21" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_0c5rlka_di" bpmnElement="ExclusiveGateway_0c5rlka" isMarkerVisible="true">
+                <dc:Bounds x="259" y="511" width="50" height="50" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="200" y="529" width="50" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1i0xgzr_di" bpmnElement="SequenceFlow_1i0xgzr">
+                <di:waypoint x="284" y="426" />
+                <di:waypoint x="284" y="511" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="246" y="450" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_1202f4b_di" bpmnElement="UserTask_1202f4b">
+                <dc:Bounds x="234" y="659" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0sonk8j_di" bpmnElement="SequenceFlow_0sonk8j">
+                <di:waypoint x="284" y="561" />
+                <di:waypoint x="284" y="659" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="259" y="599" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_0gxvz1v_di" bpmnElement="UserTask_0gxvz1v">
+                <dc:Bounds x="609" y="659" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0siix6s_di" bpmnElement="SequenceFlow_0siix6s">
+                <di:waypoint x="334" y="699" />
+                <di:waypoint x="609" y="699" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="461" y="681" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="EndEvent_0j43457_di" bpmnElement="EndEvent_0j43457">
+                <dc:Bounds x="994" y="681" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1040" y="692" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0jm4kf1_di" bpmnElement="SequenceFlow_0jm4kf1">
+                <di:waypoint x="709" y="699" />
+                <di:waypoint x="994" y="699" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="841" y="681" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1q5l94z_di" bpmnElement="SequenceFlow_1q5l94z">
+                <di:waypoint x="284" y="739" />
+                <di:waypoint x="284" y="788" />
+                <di:waypoint x="1012" y="788" />
+                <di:waypoint x="1012" y="717" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="632" y="770" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_024jw1i_di" bpmnElement="SequenceFlow_024jw1i">
+                <di:waypoint x="309" y="536" />
+                <di:waypoint x="659" y="536" />
+                <di:waypoint x="659" y="659" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="479" y="518" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_0xjk93d_di" bpmnElement="UserTask_0xjk93d">
+                <dc:Bounds x="731" y="423" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1t5uusi_di" bpmnElement="SequenceFlow_1t5uusi">
+                <di:waypoint x="452" y="426" />
+                <di:waypoint x="452" y="463" />
+                <di:waypoint x="731" y="463" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="573" y="445" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_1lcdsh1_di" bpmnElement="UserTask_1lcdsh1">
+                <dc:Bounds x="962" y="423" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_03uq1b4_di" bpmnElement="SequenceFlow_03uq1b4">
+                <di:waypoint x="831" y="463" />
+                <di:waypoint x="962" y="463" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="886" y="445" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1l228j8_di" bpmnElement="SequenceFlow_1l228j8">
+                <di:waypoint x="1012" y="503" />
+                <di:waypoint x="1012" y="681" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="978" y="590" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0eh8ps3_di" bpmnElement="SequenceFlow_0eh8ps3">
+                <di:waypoint x="1012" y="423" />
+                <di:waypoint x="1012" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="975" y="351" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0vl1zaj_di" bpmnElement="SequenceFlow_0vl1zaj">
+                <di:waypoint x="781" y="423" />
+                <di:waypoint x="781" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="780" y="338" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="UserTask_1ppklae_di" bpmnElement="UserTask_1ppklae">
+                <dc:Bounds x="591" y="313" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1d7xv9j_di" bpmnElement="SequenceFlow_1d7xv9j">
+                <di:waypoint x="452" y="375" />
+                <di:waypoint x="452" y="353" />
+                <di:waypoint x="590" y="353" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="500" y="335" width="11" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0b3pw2m_di" bpmnElement="SequenceFlow_0b3pw2m">
+                <di:waypoint x="641" y="393" />
+                <di:waypoint x="641" y="463" />
+                <di:waypoint x="731" y="463" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="645" y="425" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_0gmk7w6_di" bpmnElement="SequenceFlow_0gmk7w6">
+                <di:waypoint x="641" y="313" />
+                <di:waypoint x="641" y="256" />
+                <di:waypoint x="334" y="256" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="640" y="282" width="33" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

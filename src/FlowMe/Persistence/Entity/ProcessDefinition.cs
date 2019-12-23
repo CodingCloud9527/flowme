@@ -7,8 +7,8 @@ namespace FlowMe.Persistence.Entity
     public class ProcessDefinition
     {
         [Key]
-        [StringLength(64)]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [StringLength(255)]
         public string Category { get; set; }

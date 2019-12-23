@@ -3,6 +3,7 @@ using System.Linq;
 using FlowMe.Command;
 using FlowMe.Command.Context;
 using FlowMe.Persistence.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlowMe.ConcreteCommand.Deployment
 {
@@ -28,9 +29,9 @@ namespace FlowMe.ConcreteCommand.Deployment
             var deploymentDb = dbContext.ProcessDeployments;
             var definitionDb = dbContext.ProcessDefs;
 
-            var def = deploymentDb.FirstOrDefault(e => e.Name == definition.Name);
+            var deployment = deploymentDb.FirstOrDefault(e => e.Name == definition.Name);
 
-            if (def == null)
+            if (deployment == null)
             {
                 var processDeployment = new ProcessDeployment
                 {
@@ -38,18 +39,18 @@ namespace FlowMe.ConcreteCommand.Deployment
                     DeployTime = DateTime.UtcNow,
                     Name = definition.Name
                 };
-                processDeployment.Id = processDeployment.Name; // TODO: remember to delete 
                 deploymentDb.Add(processDeployment);
                 definition.Version = 1;
                 definition.Deployment = processDeployment;
-                definition.Id = definition.Name; // TODO: remember to delete 
                 definitionDb.Add(definition);
             }
             else
             {
-                var processDefinition = definitionDb.First(e => e.Name == definition.Name);
+                deployment.DeployTime = DateTime.UtcNow;
+                var processDefinition = definitionDb.Include(e => e.Deployment).OrderByDescending(e => e.Version).First(e => e.Name == definition.Name);
+                processDefinition.Id = 0;
                 processDefinition.Version++;
-                definitionDb.Update(processDefinition);
+                definitionDb.Add(processDefinition);
             }
 
             return 0;
