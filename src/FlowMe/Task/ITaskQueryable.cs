@@ -1,4 +1,4 @@
-﻿namespace FlowMe.Engine.Task
+﻿namespace FlowMe.Task
 {
     public interface ITaskQueryable
     {
