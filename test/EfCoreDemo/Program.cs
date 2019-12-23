@@ -12,8 +12,8 @@ namespace EfCoreDemo
             var demoDbContext = new DemoDbContext();
             var processEngine = ProcessEngineFactory.Instance.Create(new ProcessEngineConfiguration {DbContext = demoDbContext});
             processEngine.RepositoryService.CreateDeployment()
-                .Key("demokey")
-                .Name("demoname")
+                .Key("dem")
+                .Name("demona")
                 .BpmnContent(bpmnContent)
                 .Deploy();
         }
