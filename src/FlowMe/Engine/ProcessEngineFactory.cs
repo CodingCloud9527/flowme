@@ -32,12 +32,10 @@ namespace FlowMe.Engine
 
         public IProcessEngine Create(ProcessEngineConfiguration configuration = null)
         {
-            if (_cache == null)
-            {
-                _configuration = configuration ?? new ProcessEngineConfiguration();
-                Init();
-                _cache = new ProcessEngine(_configuration);
-            }
+            if (_cache != null) return _cache;
+            _configuration = configuration ?? new ProcessEngineConfiguration();
+            Init();
+            _cache = new ProcessEngine(_configuration);
 
             return _cache;
         }

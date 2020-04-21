@@ -6,11 +6,9 @@ namespace FlowMe.ConcreteCommand.Process
 {
     public class StartProcessCmd : ICommand<ProcessInstance>
     {
-       
-
         public ProcessInstance Execute(CommandContext commandContext)
         {
-            
+            return null;
         }
     }
 }

@@ -13,11 +13,7 @@ namespace FlowMe.Engine.Configuration
 {
     public class ProcessEngineConfiguration
     {
-        private ILog Logger
-        {
-            set => LoggerHolder.Logger = value;
-            get => LoggerHolder.Logger;
-        }
+        private ILog Logger => LoggerHolder.Logger;
 
         public IEventDispatcher EventDispatcher { get; internal set; }
 
